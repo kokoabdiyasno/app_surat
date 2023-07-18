@@ -84,7 +84,7 @@ class PengajuanController extends Controller
         }
 
         // email admin
-        Mail::to('kokoabdiyasno87@gmail.com')->send(new PemberitahuanPengajuanEmail($data));
+        Mail::to('desakertajaya2023@gmail.com')->send(new PemberitahuanPengajuanEmail($data));
 
         Surat::create($data);
 

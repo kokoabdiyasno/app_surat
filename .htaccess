@@ -1,0 +1,30 @@
+# Forbidden jika tidak ada file index
+Options -Indexes
+# block akses .env
+<Files .env>
+    Order allow,deny
+    Deny from all
+</Files>
+# block akses .env.example
+<Files .env.example>
+    Order allow,deny
+    Deny from all
+</Files>
+# protect akses .htaccess
+<Files ~ "^\.ht">
+    Order allow,deny
+    Deny from all
+    Satisfy All
+</Files>
+# htaccess dari hosting untuk auto redirect ke /public
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^mep.co.id$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^mep.co.id$
+RewriteCond %{REQUEST_URI} !public/
+RewriteRule (.*) /public/$1 [L]
+# www to non www
+RewriteCond %{HTTP_HOST} ^www\.([a-z\.]+)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+# redirect http to https
+# RewriteCond %{HTTPS} !=on
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
