@@ -1,14 +1,15 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Back\AkunController;
+use App\Http\Controllers\Back\SuratController;
 use App\Http\Controllers\Back\ProfilController;
+use App\Http\Controllers\Back\LaporanController;
 use App\Http\Controllers\Front\BerandaController;
 use App\Http\Controllers\Back\DashboardController;
-use App\Http\Controllers\Back\LaporanController;
-use App\Http\Controllers\Back\SuratController;
-use App\Http\Controllers\Front\HubungiKamiController;
 use App\Http\Controllers\Front\PengajuanController;
+use App\Http\Controllers\Front\HubungiKamiController;
 use App\Http\Controllers\Front\ProfilController as FrontProfilController;
 
 /*
@@ -32,13 +33,19 @@ Route::get('/beranda', [BerandaController::class, 'index']);
 
 Route::get('profil/{status}', [FrontProfilController::class, 'index']);
 
-Route::get('pengajuan/{tipe}', [PengajuanController::class, 'index']);
-Route::post('pengajuan', [PengajuanController::class, 'store']);
-
 Route::get('hubungi-kami', HubungiKamiController::class);
+Route::get('pengajuan/{tipe}', [PengajuanController::class, 'index']);
+
+Route::middleware(['auth', 'role:user'])->group(function () {
+    // submit pengajuan from user
+    Route::post('pengajuan', [PengajuanController::class, 'store']);
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/surats/detail/{id}', [App\Http\Controllers\HomeController::class, 'show']);
+
+});
 
 // Admin
-Route::middleware('auth')->group(function() {
+Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
 
     Route::get('/admin-profil', [ProfilController::class, 'index']);
@@ -59,4 +66,3 @@ Route::middleware('auth')->group(function() {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

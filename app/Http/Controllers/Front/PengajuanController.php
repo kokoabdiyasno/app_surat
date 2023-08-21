@@ -86,6 +86,7 @@ class PengajuanController extends Controller
         // email admin
         Mail::to('desakertajaya2023@gmail.com')->send(new PemberitahuanPengajuanEmail($data));
 
+        $data['user_id'] = auth()->user()->id;
         Surat::create($data);
 
         return back()->with('success', 'Data Pengajuan Surat Anda Berhasil Dikirim, Mohon menunggu konfirmasi Admin');

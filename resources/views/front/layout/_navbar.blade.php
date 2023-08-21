@@ -33,6 +33,12 @@
                 </li>
 
                 <li class="nav-item"><a class="nav-link" href="{{ url('hubungi-kami') }}">Hubungi Kami</a></li>
+
+                @guest
+                    <li class="nav-item"><a class="nav-link" href="{{ url('login') }}">Login</a></li>
+                @else
+                    <li class="nav-item"><a class="nav-link" href="{{ url('home') }}">{{ auth()->user()->name }}</a></li>
+                @endguest
             </ul>
         </div>
     </div>

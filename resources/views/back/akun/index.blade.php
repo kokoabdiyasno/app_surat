@@ -52,7 +52,13 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->email }}</td>
-                            <td>{{ $item->email }}</td>
+                            <td>
+                                @if ($item->role == 1)
+                                    Admin/Operator
+                                @else
+                                    Pengguna
+                                @endif
+                            </td>
                             <td class="text-center" width="10%">
                                 <button class="btn btn-success mb-1" data-bs-toggle="modal"
                                     data-bs-target="#modalUbah{{ $item->id }}">Ubah</button>
@@ -75,12 +81,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="staticBackdropLabel">Tambah Akun</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Tambah Akun Admin/Operator</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="{{ url('akun/') }}" method="post">
                         @csrf
+
+                        <input type="hidden" name="role" value="1">
 
                         <div class="mb-3">
                             <label for="name">Username</label>

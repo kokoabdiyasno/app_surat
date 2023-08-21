@@ -30,7 +30,7 @@
 
                         @if (session('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                {{ session('success') }}
+                                {{ session('success') }}, klik disini untuk melihat <a href="{{ url('home') }}">daftar surat</a> anda
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>
@@ -47,7 +47,7 @@
                                         <label for="nama">Nama</label>
                                         <input type="text" name="nama" id="nama"
                                             class="form-control @error('nama') is-invalid @enderror"
-                                            value="{{ old('nama') }}">
+                                            value="{{ old('nama', isset(auth()->user()->name) ? auth()->user()->name : null) }}">
 
                                         @error('nama')
                                             <div class="invalid-feedback">
@@ -97,7 +97,7 @@
                                         <label for="email">Alamat Email</label>
                                         <input type="email" name="email" id="email"
                                             class="form-control @error('email') is-invalid @enderror"
-                                            value="{{ old('email') }}">
+                                            value="{{ old('email', isset(auth()->user()->email) ? auth()->user()->email : null) }}">
 
                                         @error('email')
                                             <div class="invalid-feedback">

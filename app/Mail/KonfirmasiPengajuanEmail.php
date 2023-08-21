@@ -52,7 +52,7 @@ class KonfirmasiPengajuanEmail extends Mailable
     {
         // if ($this->data['hasil_surat'] != null) {
         //     return [
-        //         Attachment::fromPath(asset('/back/pdf/' . $this->data['hasil_surat']))
+        //         Attachment::fromPath(url('/back/pdf/' . $this->data['hasil_surat']))
         //     ];
         // } else {
             return [];

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1deb5ubuntu1
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 18, 2023 at 08:57 AM
--- Server version: 8.0.30
--- PHP Version: 8.1.10
+-- Generation Time: Aug 21, 2023 at 02:07 PM
+-- Server version: 8.0.33-0ubuntu0.22.04.4
+-- PHP Version: 8.1.2-1ubuntu2.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -139,6 +139,7 @@ INSERT INTO `profils` (`id`, `judul`, `isi`, `gambar`, `status`, `created_at`, `
 
 CREATE TABLE `surats` (
   `id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint NOT NULL,
   `nama` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `jenis_kelamin` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `tanggal_lahir` date NOT NULL,
@@ -156,15 +157,6 @@ CREATE TABLE `surats` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `surats`
---
-
-INSERT INTO `surats` (`id`, `nama`, `jenis_kelamin`, `tanggal_lahir`, `email`, `no_telepon`, `alamat`, `catatan`, `upload_kk`, `berkas_pendukung`, `tipe`, `status`, `alasan_ditolak`, `hasil_surat`, `created_at`, `updated_at`) VALUES
-(5, 'Koko Abdiyasno', 'Laki-Laki', '2000-06-16', 'kokoabdiyasno87@gmail.com', '08237337388', 'Dusun 5 Desa Kertajaya', NULL, '6481561f5f638.webp', NULL, '1', '2', NULL, NULL, '2023-06-07 21:16:34', '2023-06-07 21:28:58'),
-(6, 'Koko Abdiyasno', 'Laki-Laki', '1999-06-23', 'guntarahafri18@gmail.com', '123338428382', 'Dusun surabaya', NULL, '64815895501de.webp', NULL, '2', '1', 'kurang lengkap', NULL, '2023-06-07 21:27:04', '2023-07-13 11:47:01'),
-(7, 'Koko Abdiyasno', 'Perempuan', '1997-10-09', 'kokoabdiyasno87@gmail.com', '082373379399', 'Kertajaya', NULL, '648fc77969cf7.webp', NULL, '3', '0', NULL, NULL, '2023-06-18 20:12:02', '2023-06-18 20:12:02');
-
 -- --------------------------------------------------------
 
 --
@@ -178,6 +170,7 @@ CREATE TABLE `users` (
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `role` int DEFAULT '2',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -186,9 +179,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Super Admin', 'superadmin@gmail.com', NULL, '$2y$10$32btitxZCPrIkBUsT/ChyeTfdqdThSTaXvETtnzEMbOi2tAsOhmou', NULL, '2023-06-04 20:53:47', '2023-06-06 06:30:13'),
-(3, 'Operator', 'operator@gmail.com', NULL, '$2y$10$M4ObN6aY6rIRJmqVoj0EjOe/QPwR2P3gJixYyho2xjhH41E8zk/HS', NULL, '2023-06-06 06:45:07', '2023-07-13 11:55:53');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `role`, `created_at`, `updated_at`) VALUES
+(1, 'Super Admin', 'superadmin@gmail.com', NULL, '$2y$10$32btitxZCPrIkBUsT/ChyeTfdqdThSTaXvETtnzEMbOi2tAsOhmou', NULL, 1, '2023-06-04 20:53:47', '2023-06-06 06:30:13'),
+(3, 'User 1', 'user1@gmail.com', NULL, '$2y$10$M4ObN6aY6rIRJmqVoj0EjOe/QPwR2P3gJixYyho2xjhH41E8zk/HS', NULL, 2, '2023-06-06 06:45:07', '2023-07-13 11:55:53'),
+(12, 'User 2', 'user2@gmail.com', NULL, '$2y$10$32btitxZCPrIkBUsT/ChyeTfdqdThSTaXvETtnzEMbOi2tAsOhmou', NULL, 2, '2023-08-20 21:04:58', '2023-08-20 21:04:58'),
+(13, 'operator', 'operator@gmail.com', NULL, '$2y$10$KYj.3Dk1MInQI1xHpc.Lq.zX9FeDDsL0UJYr7CfsoyX6WVvpXyfPm', NULL, 1, '2023-08-20 21:12:44', '2023-08-20 21:12:44');
 
 --
 -- Indexes for dumped tables
@@ -278,13 +273,13 @@ ALTER TABLE `profils`
 -- AUTO_INCREMENT for table `surats`
 --
 ALTER TABLE `surats`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

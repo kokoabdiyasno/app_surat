@@ -36,6 +36,7 @@
 
     @if ($data['hasil_surat'] != null)
         {{ $message->embed(asset('/back/pdf/'. $data['hasil_surat'])) }}
+        {{-- {{ $message->embedData('http://127.0.0.1:8000/back/pdf/64e30717c86d0.pdf', 'hasil-surat.pdf') }} --}}
     @endif
 
 </body>
